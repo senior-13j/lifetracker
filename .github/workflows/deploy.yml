@@ -1,0 +1,26 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build-images:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aws-actions/configure-aws-credentials@v4
+        if: ${{ secrets.AWS_ROLE_TO_ASSUME != '' }}
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ secrets.AWS_REGION }}
+      - uses: aws-actions/amazon-ecr-login@v2
+        if: ${{ secrets.AWS_ROLE_TO_ASSUME != '' }}
+      - name: Build production images
+        run: |
+          docker compose build api-gateway auth-service habit-service realtime-service analytics-worker web
+      - name: Deployment handoff
+        run: |
+          echo "Images build successfully. Add AWS_ROLE_TO_ASSUME, AWS_REGION, ECR_REPOSITORY, and ECS service secrets to push and roll out."

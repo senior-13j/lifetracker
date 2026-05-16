@@ -1,0 +1,35 @@
+{
+  "name": "lifetracker",
+  "version": "0.1.0",
+  "private": true,
+  "description": "LifeTracker is a real-time personal growth platform built with MERN, Redis, Kafka, Lambda, Docker, and CI/CD.",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "scripts": {
+    "build": "npm run prepare:packages && npm run build --workspaces --if-present",
+    "check": "npm run prepare:packages && npm run lint && npm run typecheck && npm run test",
+    "dev": "npm run dev --workspaces --if-present",
+    "format": "prettier --check .",
+    "lint": "eslint .",
+    "prepare:packages": "npm run build --workspace @lifetracker/shared && npm run build --workspace @lifetracker/database && npm run build --workspace @lifetracker/backend-common",
+    "seed": "npm --workspace @lifetracker/seed run seed",
+    "test": "npm run test --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces --if-present"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.15.0",
+    "@types/node": "^22.10.1",
+    "eslint": "^9.15.0",
+    "eslint-config-prettier": "^9.1.0",
+    "prettier": "^3.4.2",
+    "typescript": "^5.7.2",
+    "typescript-eslint": "^8.15.0",
+    "vitest": "^2.1.5"
+  },
+  "engines": {
+    "node": ">=22.0.0",
+    "npm": ">=10.0.0"
+  }
+}

@@ -1,0 +1,39 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: LifeTracker Lambda artifact for Kafka-driven daily summaries.
+
+Parameters:
+  KafkaBootstrapServers:
+    Type: String
+    Description: Comma separated Kafka bootstrap servers reachable from Lambda.
+  KafkaTopic:
+    Type: String
+    Default: life.events
+  LambdaSecurityGroupIds:
+    Type: CommaDelimitedList
+  LambdaSubnetIds:
+    Type: CommaDelimitedList
+
+Resources:
+  DailySummaryFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Runtime: nodejs22.x
+      Handler: handler.handler
+      CodeUri: ../../apps/lambda-daily-summary/dist
+      MemorySize: 512
+      Timeout: 30
+      Policies:
+        - AWSLambdaBasicExecutionRole
+      VpcConfig:
+        SecurityGroupIds: !Ref LambdaSecurityGroupIds
+        SubnetIds: !Ref LambdaSubnetIds
+      Events:
+        LifeEventsKafka:
+          Type: SelfManagedKafka
+          Properties:
+            KafkaBootstrapServers: !Split [",", !Ref KafkaBootstrapServers]
+            Topics:
+              - !Ref KafkaTopic
+            StartingPosition: LATEST
+            BatchSize: 100
