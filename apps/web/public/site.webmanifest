@@ -1,0 +1,18 @@
+{
+  "name": "lifetracker",
+  "short_name": "lifetracker",
+  "description": "Habit tracking, realtime challenges, and personal progress insights.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#f5f7fb",
+  "theme_color": "#102027",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

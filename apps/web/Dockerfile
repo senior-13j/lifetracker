@@ -7,10 +7,13 @@ ENV VITE_REALTIME_URL=$VITE_REALTIME_URL
 COPY package*.json ./
 COPY apps/web/package.json apps/web/package.json
 COPY packages/shared/package.json packages/shared/package.json
+COPY packages/ui/package.json packages/ui/package.json
 RUN npm ci
 COPY tsconfig.base.json eslint.config.mjs ./
 COPY apps/web apps/web
 COPY packages/shared packages/shared
+COPY packages/ui packages/ui
+RUN npm run build --workspace @lifetracker/ui
 RUN npm run build --workspace @lifetracker/shared
 RUN npm run build --workspace @lifetracker/web
 

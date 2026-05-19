@@ -1,10 +1,13 @@
+name: lifetracker
+
 services:
   mongo:
     image: mongo:7
     ports:
       - "27017:27017"
     volumes:
-      - lifetracker-mongo:/data/db
+      - lifetracker-mongo-data:/data/db
+      - lifetracker-mongo-config:/data/configdb
     healthcheck:
       test: ["CMD", "mongosh", "--quiet", "--eval", "db.runCommand({ ping: 1 }).ok"]
       interval: 10s
@@ -15,6 +18,8 @@ services:
     image: redis:7-alpine
     ports:
       - "6379:6379"
+    volumes:
+      - lifetracker-redis-data:/data
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 10s
@@ -39,9 +44,12 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
       KAFKA_GROUP_INITIAL_REBALANCE_DELAY_MS: 0
     volumes:
-      - lifetracker-kafka:/var/lib/kafka/data
+      - lifetracker-kafka-secrets:/etc/kafka/secrets
+      - lifetracker-kafka-shared-config:/mnt/shared/config
+      - lifetracker-kafka-data:/var/lib/kafka/data
 
   seed:
+    image: lifetracker-seed:local
     build:
       context: .
       dockerfile: apps/seed/Dockerfile
@@ -53,6 +61,7 @@ services:
         condition: service_healthy
 
   auth-service:
+    image: lifetracker-auth-service:local
     build:
       context: .
       dockerfile: apps/auth-service/Dockerfile
@@ -72,6 +81,7 @@ services:
         condition: service_started
 
   habit-service:
+    image: lifetracker-habit-service:local
     build:
       context: .
       dockerfile: apps/habit-service/Dockerfile
@@ -91,6 +101,7 @@ services:
         condition: service_started
 
   realtime-service:
+    image: lifetracker-realtime-service:local
     build:
       context: .
       dockerfile: apps/realtime-service/Dockerfile
@@ -109,6 +120,7 @@ services:
         condition: service_started
 
   analytics-worker:
+    image: lifetracker-analytics-worker:local
     build:
       context: .
       dockerfile: apps/analytics-worker/Dockerfile
@@ -126,6 +138,7 @@ services:
         condition: service_started
 
   api-gateway:
+    image: lifetracker-api-gateway:local
     build:
       context: .
       dockerfile: apps/api-gateway/Dockerfile
@@ -141,6 +154,7 @@ services:
       - habit-service
 
   web:
+    image: lifetracker-web:local
     build:
       context: .
       dockerfile: apps/web/Dockerfile
@@ -153,6 +167,24 @@ services:
       - api-gateway
       - realtime-service
 
+  ui-showcase:
+    image: lifetracker-ui-showcase:local
+    build:
+      context: .
+      dockerfile: apps/ui-showcase/Dockerfile
+    ports:
+      - "3001:80"
+
 volumes:
-  lifetracker-mongo:
-  lifetracker-kafka:
+  lifetracker-redis-data:
+    name: lifetracker-redis-data
+  lifetracker-mongo-data:
+    name: lifetracker-mongo-data
+  lifetracker-mongo-config:
+    name: lifetracker-mongo-config
+  lifetracker-kafka-data:
+    name: lifetracker-kafka-data
+  lifetracker-kafka-secrets:
+    name: lifetracker-kafka-secrets
+  lifetracker-kafka-shared-config:
+    name: lifetracker-kafka-shared-config

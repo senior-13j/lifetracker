@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://lifetracker.dev/ui-kit/sitemap.xml

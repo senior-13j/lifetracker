@@ -1,5 +1,5 @@
 {
-  "name": "@lifetracker/web",
+  "name": "@lifetracker/ui-showcase",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -10,15 +10,10 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@lifetracker/shared": "0.1.0",
     "@lifetracker/ui": "0.1.0",
-    "@tanstack/react-query": "^5.62.3",
-    "date-fns": "^4.1.0",
     "lucide-react": "^0.468.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "recharts": "^2.15.0",
-    "socket.io-client": "^4.8.1"
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@types/react": "^19.0.1",

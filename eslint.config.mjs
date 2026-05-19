@@ -10,8 +10,8 @@ export default tseslint.config(
       "**/coverage/**",
       "**/node_modules/**",
       "eslint.config.mjs",
-      "apps/web/vite.config.ts",
-      "apps/web/src/vite-env.d.ts"
+      "**/vite.config.ts",
+      "**/src/vite-env.d.ts"
     ]
   },
   js.configs.recommended,
@@ -29,7 +29,7 @@ export default tseslint.config(
       "@typescript-eslint/no-misused-promises": [
         "error",
         {
-          "checksVoidReturn": false
+          checksVoidReturn: false
         }
       ],
       "@typescript-eslint/no-unsafe-assignment": "off",
@@ -42,8 +42,8 @@ export default tseslint.config(
       "@typescript-eslint/no-unused-vars": [
         "error",
         {
-          "argsIgnorePattern": "^_",
-          "varsIgnorePattern": "^_"
+          argsIgnorePattern: "^_",
+          varsIgnorePattern: "^_"
         }
       ]
     }

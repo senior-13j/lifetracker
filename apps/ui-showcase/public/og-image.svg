@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">lifetracker UI Kit preview</title>
+  <desc id="desc">A React UI Kit preview showing cards, buttons, badges, and form controls.</desc>
+  <rect width="1200" height="630" fill="#f5f7fb" />
+  <text x="96" y="150" fill="#102027" font-family="Arial, sans-serif" font-size="54" font-weight="700">lifetracker UI Kit</text>
+  <text x="96" y="208" fill="#48606b" font-family="Arial, sans-serif" font-size="30">Reusable React components and accessible patterns</text>
+  <rect x="96" y="284" width="260" height="160" rx="14" fill="#ffffff" stroke="#d9e2ec" stroke-width="3" />
+  <rect x="410" y="284" width="260" height="160" rx="14" fill="#ffffff" stroke="#d9e2ec" stroke-width="3" />
+  <rect x="724" y="284" width="380" height="160" rx="14" fill="#ffffff" stroke="#d9e2ec" stroke-width="3" />
+  <rect x="128" y="330" width="150" height="42" rx="8" fill="#102027" />
+  <rect x="444" y="330" width="92" height="32" rx="16" fill="#dff7ed" />
+  <circle cx="772" cy="354" r="19" fill="#12b886" />
+  <circle cx="828" cy="354" r="19" fill="#3b82f6" />
+  <circle cx="884" cy="354" r="19" fill="#f97316" />
+</svg>
