@@ -9,6 +9,7 @@
   ],
   "scripts": {
     "build": "npm run prepare:packages && npm run build --workspaces --if-present",
+    "build:vercel": "npm run build --workspace @lifetracker/ui && npm run build --workspace @lifetracker/shared && npm run build --workspace @lifetracker/web",
     "check": "npm run prepare:packages && npm run lint && npm run typecheck && npm run test",
     "dev": "npm run dev --workspaces --if-present",
     "format": "prettier --check .",
